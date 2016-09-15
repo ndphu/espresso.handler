@@ -12,7 +12,7 @@ type Handler interface {
 
 func BindHandler(client mqtt.Client, topic string, hander Handler) {
 	channel := make(chan string)
-	token := client.Subscribe(topic, 1, func(client mqtt.Client, msg mqtt.Message) {
+	token := client.Subscribe(topic, 2, func(client mqtt.Client, msg mqtt.Message) {
 		channel <- fmt.Sprintf("%s", msg.Payload())
 	})
 	if token.Wait() && token.Error() != nil {
